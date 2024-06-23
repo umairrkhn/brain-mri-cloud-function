@@ -1,0 +1,9 @@
+functions_framework
+Flask
+requests
+gunicorn
+Werkzeug
+numpy
+tensorflow
+keras
+Pillow
