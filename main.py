@@ -13,6 +13,7 @@ app = Flask(__name__)
 MODEL_PATH = "brain_mri_seg.h5"
 model = None  # Placeholder for model loading
 
+
 # Function to create dice coefficient
 def dice_coef(y_true, y_pred, smooth=100):
     y_true_flatten = K.flatten(y_true)
@@ -22,9 +23,11 @@ def dice_coef(y_true, y_pred, smooth=100):
     union = K.sum(y_true_flatten) + K.sum(y_pred_flatten)
     return (2 * intersection + smooth) / (union + smooth)
 
+
 # Function to create dice loss
 def dice_loss(y_true, y_pred, smooth=100):
     return -dice_coef(y_true, y_pred, smooth)
+
 
 # Function to create iou coefficient
 def iou_coef(y_true, y_pred, smooth=100):
@@ -33,14 +36,17 @@ def iou_coef(y_true, y_pred, smooth=100):
     iou = (intersection + smooth) / (sum - intersection + smooth)
     return iou
 
+
 # Custom objects for model loading
 custom_objects = {"dice_coef": dice_coef, "dice_loss": dice_loss, "iou_coef": iou_coef}
+
 
 # Function to load the model
 def load_model_from_root():
     global model
     if model is None:
         model = load_model(MODEL_PATH, custom_objects=custom_objects, compile=False)
+
 
 # HTTP function to handle image upload and prediction
 @functions_framework.http
