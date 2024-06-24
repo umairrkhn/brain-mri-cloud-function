@@ -62,8 +62,8 @@ def predict(request):
     # Check if the file is a TIFF image
     if file.filename == "":
         return jsonify({"error": "No file selected for uploading"}), 400
-    if not file.filename.endswith(".tif"):
-        return jsonify({"error": "Uploaded file must be a .tif image"}), 400
+    if not (file.filename.endswith(".tif") or file.filename.endswith(".tiff")):
+        return jsonify({"error": "Uploaded file must be a .tif or .tiff image"}), 400
 
     # Create a temporary file to save the uploaded TIFF
     with tempfile.NamedTemporaryFile(suffix=".tif", delete=False) as temp_tif_file:
